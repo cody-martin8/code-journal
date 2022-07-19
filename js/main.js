@@ -14,7 +14,7 @@ $journalEntry.addEventListener('submit', function inputJournalEntry(event) {
   for (var i = 0; i < event.target.length - 1; i++) {
     journalEntry[event.target[i].className] = event.target[i].value;
   }
-  journalEntry.nextEntryId = data.nextEntryId;
+  journalEntry.entryId = data.entryId;
   data.nextEntryId++;
   data.entries.unshift(journalEntry);
   $entryImage.setAttribute('src', 'images/placeholder-image-square.jpg');

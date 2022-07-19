@@ -2,7 +2,8 @@
   display: none !important;
 }
 
-.container {
+.container,
+.row-header {
   max-width: 575px;
   margin: 0 auto;
   padding: 0 1.5rem;
@@ -18,13 +19,25 @@
   width: 100%;
 }
 
+.button {
+  display: flex;
+  justify-content: right;
+}
+
+img {
+  width: 100%;
+  height: 350px;
+}
+
 @media screen and (min-width: 768px) {
-  .container {
+  .container,
+  .row-header {
     max-width: 900px;
   }
 
   .column-full,
-  .column-half {
+  .column-half,
+  .column-header {
     padding: 0 0.75rem;
   }
 

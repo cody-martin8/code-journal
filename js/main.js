@@ -16,5 +16,7 @@ $journalEntry.addEventListener('submit', function inputJournalEntry(event) {
   }
   journalEntry.nextEntryId = data.nextEntryId;
   data.nextEntryId++;
-  // console.log(journalEntry);
+  data.entries.unshift(journalEntry);
+  $entryImage.setAttribute('src', 'images/placeholder-image-square.jpg');
+  $journalEntry.reset();
 });

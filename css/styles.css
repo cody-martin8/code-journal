@@ -3,7 +3,7 @@ body {
 }
 
 .container-header {
-  background-color: rgb(90, 0, 155);
+  background-color: rgb(81, 0, 139);
   padding-top: 15px;
   padding-bottom: 15px;
 }
@@ -11,12 +11,12 @@ body {
 .container-header h2 {
   color: white;
   margin: 0;
-  font-family: sans-serif;
+  font-family: "Proza Libre", sans-serif;
   font-weight: 300;
 }
 
 .container h1 {
-  font-family: sans-serif;
+  font-family: "Proza Libre", sans-serif;
   font-size: 28pt;
 }
 
@@ -32,11 +32,13 @@ input {
 
 textarea {
   width: 100%;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
 }
 
 label {
   padding-bottom: 7px;
-  font-family: sans-serif;
+  font-family: "Proza Libre", sans-serif;
   font-weight: 600;
 }
 
@@ -45,6 +47,8 @@ label {
   border-radius: 2px;
   border: solid lightgray 1px;
   height: 2rem;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
 }
 
 .notes {
@@ -57,15 +61,17 @@ label {
 input:focus,
 textarea:focus {
   outline: none;
-  border: 2px solid rgb(90, 0, 155);
+  border: 2px solid rgb(81, 0, 139);
   border-radius: 3px;
 }
 
 button {
   border: none;
-  background-color: rgb(90, 0, 155);
+  background-color: rgb(81, 0, 139);
   color: white;
-  width: 70px;
-  height: 30px;
+  font-family: "Proza Libre", sans-serif;
+  font-weight: 500;
+  width: 60px;
+  height: 25px;
   border-radius: 3px;
 }

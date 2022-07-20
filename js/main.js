@@ -35,7 +35,10 @@ $journalEntry.addEventListener('submit', function inputJournalEntry(event) {
         <img src="" alt="">
       </div>
       <div class="column-half">
-        <h2>Star Lord</h2>
+        <div class="entry-heading">
+          <h2>Star Lord</h2>
+          <i class="fa-solid fa-pen"></i>
+        </div>
         <p>Star-Lord</p>
         <p></p>
       </div>
@@ -64,6 +67,10 @@ function renderJournalEntry(entry) {
   columnDivTwo.className = 'column-half';
   rowDiv.appendChild(columnDivTwo);
 
+  var entryHeadingDiv = document.createElement('div');
+  entryHeadingDiv.className = 'entry-heading';
+  columnDivTwo.appendChild(entryHeadingDiv);
+
   var journalImage = document.createElement('img');
   journalImage.setAttribute('src', entry.photoUrl);
   journalImage.setAttribute('alt', entry.title);
@@ -71,7 +78,11 @@ function renderJournalEntry(entry) {
 
   var journalTitle = document.createElement('h2');
   journalTitle.textContent = entry.title;
-  columnDivTwo.appendChild(journalTitle);
+  entryHeadingDiv.appendChild(journalTitle);
+
+  var editIcon = document.createElement('i');
+  editIcon.className = 'fa-solid fa-pen';
+  entryHeadingDiv.appendChild(editIcon);
 
   var journalWriteUp = document.createElement('p');
   journalWriteUp.textContent = entry.notes;

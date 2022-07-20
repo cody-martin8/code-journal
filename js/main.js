@@ -19,6 +19,7 @@ $journalEntry.addEventListener('submit', function inputJournalEntry(event) {
   data.entries.unshift(journalEntry);
   $entryImage.setAttribute('src', 'images/placeholder-image-square.jpg');
   $journalEntry.reset();
+  viewEntries();
 });
 
 /*
@@ -74,11 +75,38 @@ function renderJournalEntry(entry) {
   return listItem;
 }
 
-// test function with data.entries[i]
-
 window.addEventListener('DOMContentLoaded', function loadJournal() {
   var journalList = document.querySelector('#journal-entry-list');
   for (var i = 0; i < data.entries.length; i++) {
     journalList.appendChild(renderJournalEntry(data.entries[i]));
+  }
+});
+
+var $entriesNavItem = document.querySelector('.tab');
+var $entryForm = document.querySelectorAll('.page');
+
+function viewEntries() {
+  for (var n = 0; n < $entryForm.length; n++) {
+    if ($entryForm[n].dataset.view === 'entry-form') {
+      $entryForm[n].className = 'page hidden';
+    }
+    if ($entryForm[n].dataset.view === 'entries') {
+      $entryForm[n].className = 'page';
+    }
+  }
+}
+
+$entriesNavItem.addEventListener('click', viewEntries);
+
+var $newEntry = document.querySelector('.new-button');
+
+$newEntry.addEventListener('click', function viewNewEntry() {
+  for (var n = 0; n < $entryForm.length; n++) {
+    if ($entryForm[n].dataset.view === 'entry-form') {
+      $entryForm[n].className = 'page';
+    }
+    if ($entryForm[n].dataset.view === 'entries') {
+      $entryForm[n].className = 'page hidden';
+    }
   }
 });

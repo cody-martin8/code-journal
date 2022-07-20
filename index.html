@@ -25,16 +25,17 @@
       <div class="row-header">
         <div class="column-header">
           <h2>Code Journal</h2>
+          <a href="#" class="tab">Entries</a>
         </div>
       </div>
     </div>
   </header>
   <main>
-    <div data-view="entry-form">
+    <div class="page hidden" data-view="entry-form">
       <form id="journal-entry-form">
         <div class="container">
           <div class="row">
-            <div class="column-full">
+            <div class="column-full page-header">
               <h1>New Entry</h1>
             </div>
           </div>
@@ -74,6 +75,20 @@
           </div>
         </div>
       </form>
+    </div>
+    <div class="page" data-view="entries">
+      <div class="container">
+        <div class="row">
+          <div class="column-full">
+            <div class="entries-header page-header">
+              <h1>Entries</h1>
+              <a href="#" class="new-button">NEW</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ul id="journal-entry-list">
+      </ul>
     </div>
   </main>
   <script src="js/data.js"></script>

@@ -15,9 +15,19 @@ body {
   font-weight: 300;
 }
 
+.column-header a {
+  color: white;
+  font-size: 1.15rem;
+  font-family: "Proza Libre", sans-serif;
+  font-weight: 300;
+  margin-left: 25px;
+  text-decoration: none;
+}
+
 .container h1 {
   font-family: "Proza Libre", sans-serif;
   font-size: 28pt;
+  margin: 0;
 }
 
 .img-column {
@@ -40,6 +50,14 @@ label {
   padding-bottom: 7px;
   font-family: "Proza Libre", sans-serif;
   font-weight: 600;
+}
+
+img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 6px;
 }
 
 .column-half input {
@@ -65,13 +83,40 @@ textarea:focus {
   border-radius: 3px;
 }
 
-button {
+.save-button,
+.new-button {
   border: none;
   background-color: rgb(81, 0, 139);
   color: white;
   font-family: "Proza Libre", sans-serif;
   font-weight: 500;
-  width: 60px;
-  height: 25px;
-  border-radius: 3px;
+  font-size: 14pt;
+  padding: 9px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+/*             Entries Page             */
+
+#journal-entry-list {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.journal-entry-item img {
+  margin-bottom: 50px;
+}
+
+.journal-entry-item h2 {
+  margin-top: 0;
+  font-family: "Proza Libre", sans-serif;
+  font-weight: 600;
+}
+
+.journal-entry-item p {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  font-size: 14pt;
+  line-height: 150%;
+  margin-bottom: 40px;
 }

@@ -1,3 +1,5 @@
+// When Photo Url input is filled
+
 var $photoUrl = document.querySelector('.photoUrl');
 var $entryImage = document.querySelector('.entry-image');
 
@@ -5,6 +7,8 @@ $photoUrl.addEventListener('input', function inputImage(event) {
   event.preventDefault();
   $entryImage.setAttribute('src', event.target.value);
 });
+
+// When New Entry submitted
 
 var $journalEntry = document.getElementById('journal-entry-form');
 
@@ -14,7 +18,8 @@ $journalEntry.addEventListener('submit', function inputJournalEntry(event) {
   for (var i = 0; i < event.target.length - 1; i++) {
     journalEntry[event.target[i].className] = event.target[i].value;
   }
-  journalEntry.entryId = data.entryId;
+  journalEntry.entryId = data.nextEntryId;
+  journalList.prepend(renderJournalEntry(journalEntry));
   data.nextEntryId++;
   data.entries.unshift(journalEntry);
   $entryImage.setAttribute('src', 'images/placeholder-image-square.jpg');
@@ -75,38 +80,45 @@ function renderJournalEntry(entry) {
   return listItem;
 }
 
+// Upon page reload
+
+var journalList = document.querySelector('#journal-entry-list');
+
 window.addEventListener('DOMContentLoaded', function loadJournal() {
-  var journalList = document.querySelector('#journal-entry-list');
   for (var i = 0; i < data.entries.length; i++) {
     journalList.appendChild(renderJournalEntry(data.entries[i]));
   }
+  if (data.view === 'entry-form') {
+    $entryForm[0].className = 'page';
+    $entryForm[1].className = 'page hidden';
+  }
+  if (data.view === 'entries') {
+    $entryForm[0].className = 'page hidden';
+    $entryForm[1].className = 'page';
+  }
 });
+
+// Navigation functions
 
 var $entriesNavItem = document.querySelector('.tab');
 var $entryForm = document.querySelectorAll('.page');
+var $newEntry = document.querySelector('.new-button');
+
+function viewNewEntry() {
+  if (data.view === 'entries') {
+    $entryForm[0].className = 'page';
+    $entryForm[1].className = 'page hidden';
+  }
+  data.view = 'entry-form';
+}
 
 function viewEntries() {
-  for (var n = 0; n < $entryForm.length; n++) {
-    if ($entryForm[n].dataset.view === 'entry-form') {
-      $entryForm[n].className = 'page hidden';
-    }
-    if ($entryForm[n].dataset.view === 'entries') {
-      $entryForm[n].className = 'page';
-    }
+  if (data.view === 'entry-form') {
+    $entryForm[0].className = 'page hidden';
+    $entryForm[1].className = 'page';
   }
+  data.view = 'entries';
 }
 
 $entriesNavItem.addEventListener('click', viewEntries);
-
-var $newEntry = document.querySelector('.new-button');
-
-$newEntry.addEventListener('click', function viewNewEntry() {
-  for (var n = 0; n < $entryForm.length; n++) {
-    if ($entryForm[n].dataset.view === 'entry-form') {
-      $entryForm[n].className = 'page';
-    }
-    if ($entryForm[n].dataset.view === 'entries') {
-      $entryForm[n].className = 'page hidden';
-    }
-  }
-});
+$newEntry.addEventListener('click', viewNewEntry);

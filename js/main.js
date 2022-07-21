@@ -40,8 +40,9 @@ $journalEntry.addEventListener('submit', function inputJournalEntry(event) {
     for (var n = 0; n < data.entries.length; n++) {
       if (data.editing.entryId === data.entries[n].entryId) {
         data.entries[n] = data.editing;
-        // journalList.insertBefore(renderJournalEntry(data.entries[n]), journalItems[n + 1]);
-        // journalList.removeChild()
+        var journalItem = document.querySelectorAll('li.journal-entry-item');
+        journalItem[n].replaceWith(renderJournalEntry(data.entries[n]));
+        // journalItem[n].dataset.entryId
       }
     }
     data.editing = null;
@@ -131,8 +132,6 @@ window.addEventListener('DOMContentLoaded', function loadJournal() {
     $entryForm[1].className = 'page';
   }
 
-  // var $editIcon = document.querySelectorAll('i');
-
 });
 
 journalList.addEventListener('click', function editEntry(event) {
@@ -147,13 +146,10 @@ journalList.addEventListener('click', function editEntry(event) {
   }
   $title.value = data.editing.title;
   $photoUrl.value = data.editing.photoUrl;
-  // Not automatically loading image. Why?
+  $entryImage.setAttribute('src', $photoUrl.value);
   $notes.value = data.editing.notes;
-
-  // $photoUrl.trigger('input');
 });
 
-//  === $editIcon[0])
 // Navigation functions
 
 var $entriesNavItem = document.querySelector('.tab');
@@ -178,15 +174,3 @@ function viewEntries() {
 
 $entriesNavItem.addEventListener('click', viewEntries);
 $newEntry.addEventListener('click', viewNewEntry);
-
-// Edit entry features
-
-// var $editIcon = document.querySelectorAll('i');
-// console.log($editIcon);
-
-// journalList.addEventListener('click', function editEntry(event) {
-//   console.log(event.target);
-//   if (event.target === $editIcon) {
-//     console.log('Edit button');
-//   }
-// });

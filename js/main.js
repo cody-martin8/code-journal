@@ -95,6 +95,8 @@ function renderJournalEntry(entry) {
 // Upon page reload
 
 var journalList = document.querySelector('#journal-entry-list');
+var $title = document.querySelector('.title');
+var $notes = document.querySelector('.notes');
 
 window.addEventListener('DOMContentLoaded', function loadJournal() {
   for (var i = 0; i < data.entries.length; i++) {
@@ -112,21 +114,24 @@ window.addEventListener('DOMContentLoaded', function loadJournal() {
 
   // var $editIcon = document.querySelectorAll('i');
 
-  journalList.addEventListener('click', function editEntry(event) {
-    // if (event.target.matches('.entry-heading i')) {
-    //   viewNewEntry();
-    // }
-    // debugger;
-    var idNumber = event.target.closest('.journal-entry-item');
-    // console.log(idNumber.dataset.entryId);
-    for (var i = 0; i < data.entries.length; i++) {
-      // console.log(data.entries[i].entryId);
-      if (idNumber.dataset.entryId === String(data.entries[i].entryId)) {
-        data.editing = data.entries[i];
-      }
+});
+
+journalList.addEventListener('click', function editEntry(event) {
+  if (event.target.matches('.entry-heading i')) {
+    viewNewEntry();
+  }
+  var idNumber = event.target.closest('.journal-entry-item');
+  for (var i = 0; i < data.entries.length; i++) {
+    if (idNumber.dataset.entryId === String(data.entries[i].entryId)) {
+      data.editing = data.entries[i];
     }
-    // console.log(data.editing);
-  });
+  }
+  $title.value = data.editing.title;
+  $photoUrl.value = data.editing.photoUrl;
+  // Not automatically loading image. Why?
+  $notes.value = data.editing.notes;
+
+  // $photoUrl.trigger('input');
 });
 
 //  === $editIcon[0])

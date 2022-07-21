@@ -28,7 +28,7 @@ $journalEntry.addEventListener('submit', function inputJournalEntry(event) {
 });
 
 /*
-<li class="journal-entry-item">
+<li class="journal-entry-item" data-entry-id="#">
   <div class="container">
     <div class="row">
       <div class="column-half">
@@ -110,16 +110,26 @@ window.addEventListener('DOMContentLoaded', function loadJournal() {
     $entryForm[1].className = 'page';
   }
 
-  var $editIcon = document.querySelectorAll('i');
+  // var $editIcon = document.querySelectorAll('i');
 
   journalList.addEventListener('click', function editEntry(event) {
-    if (event.target === $editIcon[0]) {
-      // console.log('Edit button');
-      viewNewEntry();
+    // if (event.target.matches('.entry-heading i')) {
+    //   viewNewEntry();
+    // }
+    // debugger;
+    var idNumber = event.target.closest('.journal-entry-item');
+    // console.log(idNumber.dataset.entryId);
+    for (var i = 0; i < data.entries.length; i++) {
+      // console.log(data.entries[i].entryId);
+      if (idNumber.dataset.entryId === String(data.entries[i].entryId)) {
+        data.editing = data.entries[i];
+      }
     }
+    // console.log(data.editing);
   });
 });
 
+//  === $editIcon[0])
 // Navigation functions
 
 var $entriesNavItem = document.querySelector('.tab');

@@ -191,3 +191,27 @@ journalList.addEventListener('click', function editEntry(event) {
   $deleteEntryButton.className = 'delete-entry-button';
   $buttons.className = 'button edit';
 });
+
+// Delete entry functions
+
+var $overlay = document.querySelector('.overlay');
+var $popUpWrapper = document.querySelector('.delete-entry-pop-up-wrapper');
+var $cancelButton = document.querySelector('.cancel-button');
+// var $confirmDeleteButton = document.querySelector('.confirm-delete-button');
+
+function deleteEntry() {
+  $overlay.className = 'overlay on';
+  $popUpWrapper.className = 'delete-entry-pop-up-wrapper on';
+}
+
+function cancelDelete() {
+  $overlay.className = 'overlay off';
+  $popUpWrapper.className = 'delete-entry-pop-up-wrapper off';
+}
+
+// function confirmDelete() {
+
+// }
+
+$deleteEntryButton.addEventListener('click', deleteEntry);
+$cancelButton.addEventListener('click', cancelDelete);

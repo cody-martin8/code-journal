@@ -96,8 +96,10 @@ textarea:focus {
   text-decoration: none;
 }
 
-.save-button {
-  margin-bottom: 25px;
+.delete-entry-button a {
+  color: red;
+  font-family: "Proza Libre", sans-serif;
+  font-size: 10pt;
 }
 
 /*             Entries Page             */

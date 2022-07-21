@@ -46,7 +46,6 @@ $journalEntry.addEventListener('submit', function inputJournalEntry(event) {
       }
     }
     data.editing = null;
-    $journalEntry.reset();
     viewEntries();
   }
 });
@@ -158,7 +157,11 @@ function viewEntries() {
     $entryForm[1].className = 'page';
   }
   data.view = 'entries';
+  $journalEntry.reset();
+  $entryImage.setAttribute('src', 'images/placeholder-image-square.jpg');
   $entryFormHeader.textContent = 'New Entry';
+  $deleteEntryButton.className = 'delete-entry-button hidden';
+  $buttons.className = 'button';
 }
 
 $entriesNavItem.addEventListener('click', viewEntries);
@@ -167,6 +170,8 @@ $newEntry.addEventListener('click', viewNewEntry);
 // Edit functions
 
 var $entryFormHeader = document.querySelector('#journal-entry-form h1');
+var $deleteEntryButton = document.querySelector('.delete-entry-button');
+var $buttons = document.querySelector('.button');
 
 journalList.addEventListener('click', function editEntry(event) {
   if (event.target.matches('.entry-heading i')) {
@@ -183,4 +188,6 @@ journalList.addEventListener('click', function editEntry(event) {
   $photoUrl.value = data.editing.photoUrl;
   $entryImage.setAttribute('src', $photoUrl.value);
   $notes.value = data.editing.notes;
+  $deleteEntryButton.className = 'delete-entry-button';
+  $buttons.className = 'button edit';
 });

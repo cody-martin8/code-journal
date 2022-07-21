@@ -218,6 +218,7 @@ function confirmDelete() {
     }
   }
   data.editing = null;
+  cancelDelete();
   viewEntries();
 }
 

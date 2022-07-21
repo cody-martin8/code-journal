@@ -50,6 +50,7 @@ $journalEntry.addEventListener('submit', function inputJournalEntry(event) {
 function renderJournalEntry(entry) {
   var listItem = document.createElement('li');
   listItem.className = 'journal-entry-item';
+  listItem.setAttribute('data-entry-id', entry.entryId);
 
   var containerDiv = document.createElement('div');
   containerDiv.className = 'container';
@@ -99,6 +100,7 @@ window.addEventListener('DOMContentLoaded', function loadJournal() {
   for (var i = 0; i < data.entries.length; i++) {
     journalList.appendChild(renderJournalEntry(data.entries[i]));
   }
+
   if (data.view === 'entry-form') {
     $entryForm[0].className = 'page';
     $entryForm[1].className = 'page hidden';
@@ -107,6 +109,15 @@ window.addEventListener('DOMContentLoaded', function loadJournal() {
     $entryForm[0].className = 'page hidden';
     $entryForm[1].className = 'page';
   }
+
+  var $editIcon = document.querySelectorAll('i');
+
+  journalList.addEventListener('click', function editEntry(event) {
+    if (event.target === $editIcon[0]) {
+      // console.log('Edit button');
+      viewNewEntry();
+    }
+  });
 });
 
 // Navigation functions
@@ -133,3 +144,15 @@ function viewEntries() {
 
 $entriesNavItem.addEventListener('click', viewEntries);
 $newEntry.addEventListener('click', viewNewEntry);
+
+// Edit entry features
+
+// var $editIcon = document.querySelectorAll('i');
+// console.log($editIcon);
+
+// journalList.addEventListener('click', function editEntry(event) {
+//   console.log(event.target);
+//   if (event.target === $editIcon) {
+//     console.log('Edit button');
+//   }
+// });

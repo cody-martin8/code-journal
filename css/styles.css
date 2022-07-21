@@ -96,12 +96,16 @@ textarea:focus {
   padding: 9px 15px;
   border-radius: 5px;
   text-decoration: none;
+  cursor: pointer;
 }
 
-.delete-entry-button a {
+.delete-entry-button button {
   color: red;
   font-family: "Proza Libre", sans-serif;
   font-size: 10pt;
+  border: none;
+  text-decoration: underline red;
+  cursor: pointer;
 }
 
 /*             Entries Page             */
@@ -177,12 +181,6 @@ textarea:focus {
   margin: auto;
 }
 
-/* Is this needed??? */
-
-/* .delete-entry-pop-up.off {
-  display: none;
-} */
-
 .delete-entry-pop-up {
   width: 400px;
   height: 175px;
@@ -227,7 +225,7 @@ textarea:focus {
   font-size: 14pt;
   padding: 9px 15px;
   border-radius: 5px;
-  text-decoration: none;
+  cursor: pointer;
 }
 
 .cancel-button {

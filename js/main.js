@@ -197,7 +197,7 @@ journalList.addEventListener('click', function editEntry(event) {
 var $overlay = document.querySelector('.overlay');
 var $popUpWrapper = document.querySelector('.delete-entry-pop-up-wrapper');
 var $cancelButton = document.querySelector('.cancel-button');
-// var $confirmDeleteButton = document.querySelector('.confirm-delete-button');
+var $confirmDeleteButton = document.querySelector('.confirm-delete-button');
 
 function deleteEntry() {
   $overlay.className = 'overlay on';
@@ -209,9 +209,18 @@ function cancelDelete() {
   $popUpWrapper.className = 'delete-entry-pop-up-wrapper off';
 }
 
-// function confirmDelete() {
-
-// }
+function confirmDelete() {
+  for (var i = 0; i < data.entries.length; i++) {
+    if (data.editing.entryId === data.entries[i].entryId) {
+      data.entries.splice(i, 1);
+      var journalItem = document.querySelectorAll('li.journal-entry-item');
+      journalItem[i].remove();
+    }
+  }
+  data.editing = null;
+  viewEntries();
+}
 
 $deleteEntryButton.addEventListener('click', deleteEntry);
 $cancelButton.addEventListener('click', cancelDelete);
+$confirmDeleteButton.addEventListener('click', confirmDelete);

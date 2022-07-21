@@ -1,7 +1,10 @@
 // When Photo Url input is filled
 
+var $title = document.querySelector('.title');
+var $notes = document.querySelector('.notes');
 var $photoUrl = document.querySelector('.photoUrl');
 var $entryImage = document.querySelector('.entry-image');
+var journalList = document.querySelector('#journal-entry-list');
 
 $photoUrl.addEventListener('input', function inputImage(event) {
   event.preventDefault();
@@ -14,17 +17,37 @@ var $journalEntry = document.getElementById('journal-entry-form');
 
 $journalEntry.addEventListener('submit', function inputJournalEntry(event) {
   event.preventDefault();
-  var journalEntry = {};
-  for (var i = 0; i < event.target.length - 1; i++) {
-    journalEntry[event.target[i].className] = event.target[i].value;
+  if (data.editing === null) {
+    // New Entries
+    var journalEntry = {};
+    for (var i = 0; i < event.target.length - 1; i++) {
+      journalEntry[event.target[i].className] = event.target[i].value;
+    }
+    journalEntry.entryId = data.nextEntryId;
+    journalList.prepend(renderJournalEntry(journalEntry));
+    data.nextEntryId++;
+    data.entries.unshift(journalEntry);
+    $entryImage.setAttribute('src', 'images/placeholder-image-square.jpg');
+    $journalEntry.reset();
+    viewEntries();
+  } else {
+    // Edited Entries
+    data.editing.title = event.target[0].value;
+    data.editing.photoUrl = event.target[1].value;
+    data.editing.notes = event.target[2].value;
+
+    // data.entries[data.editing.entryId] = data.editing;
+    for (var n = 0; n < data.entries.length; n++) {
+      if (data.editing.entryId === data.entries[n].entryId) {
+        data.entries[n] = data.editing;
+        // journalList.insertBefore(renderJournalEntry(data.entries[n]), journalItems[n + 1]);
+        // journalList.removeChild()
+      }
+    }
+    data.editing = null;
+    $journalEntry.reset();
+    viewEntries();
   }
-  journalEntry.entryId = data.nextEntryId;
-  journalList.prepend(renderJournalEntry(journalEntry));
-  data.nextEntryId++;
-  data.entries.unshift(journalEntry);
-  $entryImage.setAttribute('src', 'images/placeholder-image-square.jpg');
-  $journalEntry.reset();
-  viewEntries();
 });
 
 /*
@@ -93,10 +116,6 @@ function renderJournalEntry(entry) {
 }
 
 // Upon page reload
-
-var journalList = document.querySelector('#journal-entry-list');
-var $title = document.querySelector('.title');
-var $notes = document.querySelector('.notes');
 
 window.addEventListener('DOMContentLoaded', function loadJournal() {
   for (var i = 0; i < data.entries.length; i++) {

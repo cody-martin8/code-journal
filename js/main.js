@@ -11,13 +11,14 @@ $photoUrl.addEventListener('input', function inputImage(event) {
   $entryImage.setAttribute('src', event.target.value);
 });
 
-// When New Entry submitted
+// When New Entry or Edited Entry is submitted
 
 var $journalEntry = document.getElementById('journal-entry-form');
 
 $journalEntry.addEventListener('submit', function inputJournalEntry(event) {
   event.preventDefault();
   if (data.editing === null) {
+
     // New Entries
     var journalEntry = {};
     for (var i = 0; i < event.target.length - 1; i++) {
@@ -31,23 +32,23 @@ $journalEntry.addEventListener('submit', function inputJournalEntry(event) {
     $journalEntry.reset();
     viewEntries();
   } else {
+
     // Edited Entries
     data.editing.title = event.target[0].value;
     data.editing.photoUrl = event.target[1].value;
     data.editing.notes = event.target[2].value;
 
-    // data.entries[data.editing.entryId] = data.editing;
     for (var n = 0; n < data.entries.length; n++) {
       if (data.editing.entryId === data.entries[n].entryId) {
         data.entries[n] = data.editing;
         var journalItem = document.querySelectorAll('li.journal-entry-item');
         journalItem[n].replaceWith(renderJournalEntry(data.entries[n]));
-        // journalItem[n].dataset.entryId
       }
     }
     data.editing = null;
     $journalEntry.reset();
     viewEntries();
+    $entryFormHeader.textContent = 'New Entry';
   }
 });
 
@@ -61,7 +62,7 @@ $journalEntry.addEventListener('submit', function inputJournalEntry(event) {
       <div class="column-half">
         <div class="entry-heading">
           <h2>Star Lord</h2>
-          <i class="fa-solid fa-pen"></i>
+          <a href="#"><i class="fa-solid fa-pen"></i></a>
         </div>
         <p>Star-Lord</p>
         <p></p>
@@ -105,9 +106,13 @@ function renderJournalEntry(entry) {
   journalTitle.textContent = entry.title;
   entryHeadingDiv.appendChild(journalTitle);
 
+  var editIconLink = document.createElement('a');
+  editIconLink.setAttribute('href', '#');
+  entryHeadingDiv.appendChild(editIconLink);
+
   var editIcon = document.createElement('i');
   editIcon.className = 'fa-solid fa-pen';
-  entryHeadingDiv.appendChild(editIcon);
+  editIconLink.appendChild(editIcon);
 
   var journalWriteUp = document.createElement('p');
   journalWriteUp.textContent = entry.notes;
@@ -134,22 +139,6 @@ window.addEventListener('DOMContentLoaded', function loadJournal() {
 
 });
 
-journalList.addEventListener('click', function editEntry(event) {
-  if (event.target.matches('.entry-heading i')) {
-    viewNewEntry();
-  }
-  var idNumber = event.target.closest('.journal-entry-item');
-  for (var i = 0; i < data.entries.length; i++) {
-    if (idNumber.dataset.entryId === String(data.entries[i].entryId)) {
-      data.editing = data.entries[i];
-    }
-  }
-  $title.value = data.editing.title;
-  $photoUrl.value = data.editing.photoUrl;
-  $entryImage.setAttribute('src', $photoUrl.value);
-  $notes.value = data.editing.notes;
-});
-
 // Navigation functions
 
 var $entriesNavItem = document.querySelector('.tab');
@@ -174,3 +163,24 @@ function viewEntries() {
 
 $entriesNavItem.addEventListener('click', viewEntries);
 $newEntry.addEventListener('click', viewNewEntry);
+
+// Edit functions
+
+var $entryFormHeader = document.querySelector('#journal-entry-form h1');
+
+journalList.addEventListener('click', function editEntry(event) {
+  if (event.target.matches('.entry-heading i')) {
+    $entryFormHeader.textContent = 'Edit Entry';
+    viewNewEntry();
+  }
+  var idNumber = event.target.closest('.journal-entry-item');
+  for (var i = 0; i < data.entries.length; i++) {
+    if (idNumber.dataset.entryId === String(data.entries[i].entryId)) {
+      data.editing = data.entries[i];
+    }
+  }
+  $title.value = data.editing.title;
+  $photoUrl.value = data.editing.photoUrl;
+  $entryImage.setAttribute('src', $photoUrl.value);
+  $notes.value = data.editing.notes;
+});

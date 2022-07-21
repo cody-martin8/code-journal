@@ -48,7 +48,6 @@ $journalEntry.addEventListener('submit', function inputJournalEntry(event) {
     data.editing = null;
     $journalEntry.reset();
     viewEntries();
-    $entryFormHeader.textContent = 'New Entry';
   }
 });
 
@@ -159,6 +158,7 @@ function viewEntries() {
     $entryForm[1].className = 'page';
   }
   data.view = 'entries';
+  $entryFormHeader.textContent = 'New Entry';
 }
 
 $entriesNavItem.addEventListener('click', viewEntries);

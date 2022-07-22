@@ -46,7 +46,6 @@ $journalEntry.addEventListener('submit', function inputJournalEntry(event) {
       }
     }
     data.editing = null;
-    $journalEntry.reset();
     viewEntries();
   }
 });
@@ -158,7 +157,11 @@ function viewEntries() {
     $entryForm[1].className = 'page';
   }
   data.view = 'entries';
+  $journalEntry.reset();
+  $entryImage.setAttribute('src', 'images/placeholder-image-square.jpg');
   $entryFormHeader.textContent = 'New Entry';
+  $deleteEntryButton.className = 'delete-entry-button hidden';
+  $buttons.className = 'button';
 }
 
 $entriesNavItem.addEventListener('click', viewEntries);
@@ -167,6 +170,8 @@ $newEntry.addEventListener('click', viewNewEntry);
 // Edit functions
 
 var $entryFormHeader = document.querySelector('#journal-entry-form h1');
+var $deleteEntryButton = document.querySelector('.delete-entry-button');
+var $buttons = document.querySelector('.button');
 
 journalList.addEventListener('click', function editEntry(event) {
   if (event.target.matches('.entry-heading i')) {
@@ -183,4 +188,40 @@ journalList.addEventListener('click', function editEntry(event) {
   $photoUrl.value = data.editing.photoUrl;
   $entryImage.setAttribute('src', $photoUrl.value);
   $notes.value = data.editing.notes;
+  $deleteEntryButton.className = 'delete-entry-button';
+  $buttons.className = 'button edit';
 });
+
+// Delete entry functions
+
+var $overlay = document.querySelector('.overlay');
+var $popUpWrapper = document.querySelector('.delete-entry-pop-up-wrapper');
+var $cancelButton = document.querySelector('.cancel-button');
+var $confirmDeleteButton = document.querySelector('.confirm-delete-button');
+
+function deleteEntry() {
+  $overlay.className = 'overlay on';
+  $popUpWrapper.className = 'delete-entry-pop-up-wrapper on';
+}
+
+function cancelDelete() {
+  $overlay.className = 'overlay off';
+  $popUpWrapper.className = 'delete-entry-pop-up-wrapper off';
+}
+
+function confirmDelete() {
+  for (var i = 0; i < data.entries.length; i++) {
+    if (data.editing.entryId === data.entries[i].entryId) {
+      data.entries.splice(i, 1);
+      var journalItem = document.querySelectorAll('li.journal-entry-item');
+      journalItem[i].remove();
+    }
+  }
+  data.editing = null;
+  cancelDelete();
+  viewEntries();
+}
+
+$deleteEntryButton.addEventListener('click', deleteEntry);
+$cancelButton.addEventListener('click', cancelDelete);
+$confirmDeleteButton.addEventListener('click', confirmDelete);

@@ -2,6 +2,10 @@
   display: none !important;
 }
 
+body {
+  height: 100%;
+}
+
 .container,
 .row-header {
   max-width: 575px;
@@ -37,7 +41,16 @@
 
 .button {
   display: flex;
-  justify-content: right;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.button.edit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
 }
 
 ul {
@@ -45,6 +58,10 @@ ul {
 }
 
 @media screen and (min-width: 768px) {
+  body {
+    height: 100vh;
+  }
+
   .container,
   .row-header {
     max-width: 900px;
